@@ -24,8 +24,10 @@ public class ItemBilling implements Billing {
         double totalPrice = 0.0;
         for (Item item : itemList) {
             double tax = salesTaxCal.computeTax(item);
+            double roundedTax =  Math.ceil(tax * TWENTY) / TWENTY;
             double itemPrice = tax + (item.getNumOfItems() * item.getPrice());
-            Purchase purchase = new Purchase(item, tax, itemPrice);
+            double roundedItemPrice =  Math.ceil(itemPrice * TWENTY) / TWENTY;
+            Purchase purchase = new Purchase(item, roundedTax, roundedItemPrice);
             totalTax = totalTax + tax;
             totalPrice = totalPrice + itemPrice;
             purchaseList.add(purchase);
